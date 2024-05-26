@@ -1,5 +1,5 @@
-import { Title } from "@/app/components/Title.component";
 import Link from "next/link";
+import { Title } from "@components/Title.component";
 
 export default function Home() {
 

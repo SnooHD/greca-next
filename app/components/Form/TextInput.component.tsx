@@ -1,8 +1,8 @@
-import { InputHTMLAttributes } from 'react';
-import { useFormContext } from 'react-hook-form';
+import type { FormValidationSchema } from '@/types/form.types';
 
+import { InputHTMLAttributes } from 'react';
+import {  useFormContext } from 'react-hook-form';
 import { Error } from './Error.component';
-import { FormValidationSchema } from '@/types/form.types';
 
 interface TextInputProps
     extends InputHTMLAttributes<HTMLInputElement> {

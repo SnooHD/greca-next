@@ -1,8 +1,8 @@
 import { AddressAutofill } from '@mapbox/search-js-react';
-import { TextInput } from '@/app/components/Form/TextInput.component';
-import { MAPBOX_TOKEN } from '@/app/utils/env.util';
+import { TextInput } from '@components/Form/TextInput.component';
+import { MAPBOX_TOKEN } from '@utils/env.util';
 
-export default function SearchAddress(): JSX.Element {
+export default function SearchAddressNoSSR(): JSX.Element {
     return (
         <div>
             <AddressAutofill
@@ -15,8 +15,10 @@ export default function SearchAddress(): JSX.Element {
                 <TextInput 
                     name="address"
                     label="Address"
+                    autoComplete="street-address"
                 />
             </AddressAutofill>
         </div>
     )
 }
+

@@ -1,7 +1,9 @@
-import { Title } from "@/app/components/Title.component";
-import { Text } from "@/app/components/Text.component";
+'use server';
+
 import { doStrapiFetch } from "@utils/doFetch.util";
-import { Table } from "../components/Table.component";
+import { Title } from "@components/Title.component";
+import { Text } from "@components/Text.component";
+import { Table } from "@components/Table.component";
 
 interface StrapiRequest {
     data: {

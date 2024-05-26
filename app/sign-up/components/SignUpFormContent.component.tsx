@@ -1,24 +1,18 @@
 'use client';
-import Select from "react-select";
-import { TextInput } from "@components/Form/TextInput.component";
-import { Form } from "@components/Form/Form.component";
-import { validationSchema } from "@utils/formValidation.util";
-import { Controller, FieldPath, useFormContext } from "react-hook-form";
-import { useFormState, useFormStatus } from 'react-dom';
-import { Button } from "@components/Button.component";
-import { SignUpAction, State } from "@/app/sign-up/actions/submitForm.action";
+
+import type { FormValidationSchema } from "@/types/form.types";
+
 import { useEffect, useState } from "react";
+import { useFormStatus } from 'react-dom';
+import { FieldPath, useFormContext } from "react-hook-form";
+import { State } from "@/app/sign-up/actions/submitForm.action";
+import { AgeGroupSelect } from "./AgeGroupSelect.component";
+import { TextInput } from "@components/Form/TextInput.component";
+import { Button } from "@components/Button.component";
 import { Error } from "@components/Form/Error.component";
-import { FormValidationSchema } from "@/types/form.types";
-import dynamic from "next/dynamic";
+import { SearchAddress } from "@components/Form/SearchAddress/SearchAddress.component";
 
-// Mapbox does not work with SSR since its using window.document, so we load it dynamicly.
-const SearchAddressDynamic = dynamic(
-  () => import('../../components/Form/SearchAddress.component'), 
-  { ssr: false}
-)
-
-const SignUpFormContent = ({
+export const SignUpFormContent = ({
   state,
 }: {
   state?: State;
@@ -65,38 +59,21 @@ const SignUpFormContent = ({
         setRequestSuccess(true);
     }
   }, [state, setError]);
-  
-  const ageGroup = [
-    { value: "adult", label: "Adult" },
-    { value: "child", label: "Child" },
-    { value: "infant", label: "Infant" }
-  ]
 
   return (
     <>
       <TextInput
           name="firstName"
           label="First name"
+          autoComplete="given-name"
       />
       <TextInput
           name="email"
           label="Email"
+          autoComplete="email"
       />
-      <Controller
-          name="ageGroup"
-          render={({ field }) => (
-              <div>
-                <label>
-                    Age group
-                    <Select 
-                    {...field} 
-                    options={ageGroup} 
-                    />
-                </label>
-              </div>
-          )}
-      />
-      <SearchAddressDynamic />
+      <AgeGroupSelect />
+      <SearchAddress />
       <Button disabled={pending || requestSuccess} type="submit">
         {pending ? 'Sending...' : ''}
         {requestSuccess ? 'Sent' : ''}
@@ -106,19 +83,4 @@ const SignUpFormContent = ({
       <Error error={requestError} />
     </>
   )
-}
-
-export const SignUpForm = () => {
-  const [state, formAction] = useFormState<State, FormData>(SignUpAction, null);
-  
-  return (
-    <Form
-      action={formAction}
-      name="user-data"
-      className="space-y-xs max-w-[420px] w-full"
-      validationSchema={validationSchema}
-    >
-        <SignUpFormContent state={state} />
-    </Form>
-  );
 }

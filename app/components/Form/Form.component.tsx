@@ -1,4 +1,5 @@
-import { FormValidationSchema } from '@/types/form.types';
+import type { FormValidationSchema } from '@/types/form.types';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
     FormHTMLAttributes,
