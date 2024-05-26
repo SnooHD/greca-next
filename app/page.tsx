@@ -18,8 +18,9 @@ export default function Home() {
       <Title size="h1">Overview</Title>
       <div className="space-y-4 flex flex-col justify-center items-center w-full min-h-[240px]">
         {
-          routeView.map(({url, label}) => (
+          routeView.map(({url, label}, index) => (
             <Link 
+              key={`link-to-page-${url}-${label}-${index}`}
               href={url}
               className={`
                 p-4 bg-blue text-white rounded w-[180px]

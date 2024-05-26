@@ -28,7 +28,7 @@ export default async function PreFetch() {
             <Title size="h1">Prefetching some data</Title>
             <div className="space-y-4 w-full max-w-[480px]">
                 <div className="w-full">
-                    <Text size="l">Single item by slug "/penguinos/penguino0"</Text>
+                    <Text size="l">Single item by slug &quot;/penguinos/penguino0&quot;</Text>
                     <Table
                         heading={['Id', 'Slug', 'Name', 'Flying buffet']}
                         items={
@@ -37,7 +37,7 @@ export default async function PreFetch() {
                     />
                 </div>
                 <div className="w-full">
-                    <Text size="l">All data "/penguinos"</Text>
+                    <Text size="l">All data &quot;/penguinos&quot;</Text>
                     <Table
                         heading={['Id', 'Slug', 'Name', 'Flying buffet']}
                         items={
