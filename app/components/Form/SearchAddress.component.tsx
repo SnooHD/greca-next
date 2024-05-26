@@ -1,9 +1,8 @@
-'use client';
 import { AddressAutofill } from '@mapbox/search-js-react';
 import { TextInput } from '@/app/components/Form/TextInput.component';
 import { MAPBOX_TOKEN } from '@/app/utils/env.util';
 
-export const SearchAddress = (): JSX.Element => {
+export default function SearchAddress(): JSX.Element {
     return (
         <div>
             <AddressAutofill

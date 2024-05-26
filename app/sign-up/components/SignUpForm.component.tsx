@@ -1,17 +1,22 @@
 'use client';
-
 import Select from "react-select";
-import { TextInput } from "@/app/components/Form/TextInput.component";
-import { Form } from "@/app/components/Form/Form.component";
-import { SearchAddress } from "@/app/components/Form/SearchAddress.component";
-import { validationSchema } from "@/app/utils/formValidation.util";
+import { TextInput } from "@components/Form/TextInput.component";
+import { Form } from "@components/Form/Form.component";
+import { validationSchema } from "@utils/formValidation.util";
 import { Controller, FieldPath, useFormContext } from "react-hook-form";
 import { useFormState, useFormStatus } from 'react-dom';
-import { Button } from "@/app/components/Button.component";
+import { Button } from "@components/Button.component";
 import { SignUpAction, State } from "@/app/sign-up/actions/submitForm.action";
 import { useEffect, useState } from "react";
-import { Error } from "../../components/Form/Error.component";
+import { Error } from "@components/Form/Error.component";
 import { FormValidationSchema } from "@/types/form.types";
+import dynamic from "next/dynamic";
+
+// Mapbox does not work with SSR since its using window.document, so we load it dynamicly.
+const SearchAddressDynamic = dynamic(
+  () => import('../../components/Form/SearchAddress.component'), 
+  { ssr: false}
+)
 
 const SignUpFormContent = ({
   state,
@@ -33,7 +38,7 @@ const SignUpFormContent = ({
       setRequestSuccess(false);
     });
     return () => subscription.unsubscribe();
-  }, [requestSuccess])
+  }, [requestSuccess, watch])
 
   useEffect(() => {
     if (!state) {
@@ -59,7 +64,7 @@ const SignUpFormContent = ({
       case 'success':
         setRequestSuccess(true);
     }
-  }, [state]);
+  }, [state, setError]);
   
   const ageGroup = [
     { value: "adult", label: "Adult" },
@@ -91,7 +96,7 @@ const SignUpFormContent = ({
               </div>
           )}
       />
-      <SearchAddress />
+      <SearchAddressDynamic />
       <Button disabled={pending || requestSuccess} type="submit">
         {pending ? 'Sending...' : ''}
         {requestSuccess ? 'Sent' : ''}
